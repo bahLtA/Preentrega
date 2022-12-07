@@ -9,9 +9,15 @@ public class Animations : MonoBehaviour
     int count;
     float temp;
     bool isPunching;
+
+    float[] animDuration = new float[3];
+
+    
     void Start()
     {
-        
+        animDuration[0] = 1;
+        animDuration[1] = 1;
+        animDuration[2] = 1.33f;
     }
 
     void Update()
@@ -48,15 +54,43 @@ public class Animations : MonoBehaviour
 
     void PunchAnimations()
     {
-        if(Input.GetMouseButtonDown(0) && !isPunching)
+        if(Input.GetKeyDown(KeyCode.Mouse0) && !isPunching)
         {
-
+            if (count == 0)
+            {
+                count++;
+            }
+            switch (count)
+            {
+                case 1:
+                    _animator.SetInteger("Count",count);
+                    isPunching = true;
+                    count++;
+                    Cooldown();
+                    break;
+                case 2:
+                    _animator.SetInteger("Count",count);
+                    isPunching = true;
+                    Cooldown();
+                    break;
+                case 3:
+                    _animator.SetInteger("Count",count);
+                    isPunching = true;
+                    count = 0;
+                    Cooldown();
+                    break;
+            }
         }
     }
 
     void Cooldown()
     {
-
+        temp += Time.deltaTime;
+        if (temp > animDuration[count])
+        {
+            temp = 0;
+            isPunching= false;
+        }
     }
     void Tempo()
     {

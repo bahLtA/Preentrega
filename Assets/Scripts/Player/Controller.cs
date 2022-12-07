@@ -12,8 +12,10 @@ public class Controller : MonoBehaviour
     //camara
     public Camera cam;
     private Vector3 forwardCam,rightCam;
+    public Transform _cam;
 
     public CharacterController player;
+    float gravity = -9.8f;
 
     void Start()
     {
@@ -26,15 +28,37 @@ public class Controller : MonoBehaviour
     {
         PlayerMovement();
         Jump();
-        CameraDirection();
     }
 
     void PlayerMovement()
     {
-        playerInputs = new Vector3(Input.GetAxis("Horizontal")*Time.fixedDeltaTime,0, Input.GetAxis("Vertical")*Time.fixedDeltaTime);
-        Run();
+        float hor = Input.GetAxis("Horizontal");
+        float ver = Input.GetAxis("Vertical");
+        Vector3 movement = Vector3.zero;
+        float movementSpeed = 0;
+        if (hor != 0 || ver != 0)
+        {
+            Vector3 forward = _cam.forward;
+            forward.y = 0;
+            forward.Normalize();
+
+            Vector3 right = _cam.right;
+            right.y = 0;
+            right.Normalize();
+
+            Vector3 direction = forward * ver + right * hor;
+            movementSpeed = Mathf.Clamp01(direction.magnitude);
+            direction.Normalize();
+
+            Run();
+            movement = direction * speed * movementSpeed * Time.deltaTime;
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 0.2f);
+        }
+        movement.y += gravity * Time.deltaTime;
+
         moveTo = playerInputs.x * rightCam + playerInputs.z * forwardCam;
-        player.Move(moveTo * speed * Time.fixedDeltaTime);
+        player.Move(movement);
         
     }
 
@@ -58,15 +82,5 @@ public class Controller : MonoBehaviour
         }
     }
 
-    void CameraDirection()
-    {
-        forwardCam = cam.transform.forward;
-        rightCam = cam.transform.right;
-        
-        forwardCam.y = 0;
-        rightCam.y = 0;
-
-        forwardCam = forwardCam.normalized;
-        rightCam = rightCam.normalized;
-    }
+    
 }

@@ -32,7 +32,6 @@ public class Enemy : MonoBehaviour
         if (detectPlayer)
         {
             transform.LookAt(new Vector3(target.position.x,transform.position.y,target.position.z));
-            anim.SetBool("isWalk", true);
             rb.velocity = transform.forward * speed + new Vector3(0, rb.velocity.y, 0);
             
         }
@@ -47,7 +46,6 @@ public class Enemy : MonoBehaviour
             switch (routine)
             {
                 case 0:
-                    anim.SetBool("isWalk", false);
                     break;
                 case 1:
                     degree = Random.Range(0, 360);
@@ -57,7 +55,6 @@ public class Enemy : MonoBehaviour
                 case 2:
                     transform.rotation = Quaternion.RotateTowards(transform.rotation,quat,0.5f);
                     rb.velocity = transform.forward * speed + new Vector3(0, rb.velocity.y, 0);
-                    anim.SetBool("isWalk", true);
                     break;
             }
         }
@@ -84,7 +81,7 @@ public class Enemy : MonoBehaviour
         {
             if(anim != null)
             {
-                anim.Play("Taking Punch");
+                anim.Play("Hurt");
             }
             hp -= damagePunch;
         }
