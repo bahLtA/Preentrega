@@ -4,7 +4,8 @@ public class Controller : MonoBehaviour
 {
     Rigidbody rb;
     float origSpeed;
-    public float speed,jumpForce;
+    public float speed;
+    
 
     private Vector3 playerInputs;
     private Vector3 moveTo;
@@ -27,7 +28,6 @@ public class Controller : MonoBehaviour
     private void FixedUpdate()
     {
         PlayerMovement();
-        Jump();
     }
 
     void PlayerMovement()
@@ -53,7 +53,7 @@ public class Controller : MonoBehaviour
             Run();
             movement = direction * speed * movementSpeed * Time.deltaTime;
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 0.2f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 0.1f);
         }
         movement.y += gravity * Time.deltaTime;
 
@@ -73,14 +73,4 @@ public class Controller : MonoBehaviour
             speed = origSpeed;
         }
     }
-
-    void Jump()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.AddForce(0, jumpForce, 0);
-        }
-    }
-
-    
 }

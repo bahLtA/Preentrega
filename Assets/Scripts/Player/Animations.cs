@@ -22,7 +22,6 @@ public class Animations : MonoBehaviour
     {
         WalkAnimations();
         PunchAnimations();
-        Cooldown();
     }
 
     void WalkAnimations()
