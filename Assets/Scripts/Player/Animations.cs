@@ -6,24 +6,23 @@ public class Animations : MonoBehaviour
 {
     public Animator _animator;
     float vel=0;
-    int count;
-    float temp;
-    bool isPunching;
+    public int count;
+    public float temp;
+    public bool isPunching;
 
-    float[] animDuration = new float[3];
+    public BoxCollider[] punchCollider;
 
-    
+
     void Start()
     {
-        animDuration[0] = 1;
-        animDuration[1] = 1;
-        animDuration[2] = 1.33f;
+        DeactivePunchCollider();
     }
 
     void Update()
     {
         WalkAnimations();
         PunchAnimations();
+        Cooldown();
     }
 
     void WalkAnimations()
@@ -54,51 +53,53 @@ public class Animations : MonoBehaviour
 
     void PunchAnimations()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse0) && !isPunching)
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (count == 0)
-            {
-                count++;
-            }
-            switch (count)
-            {
-                case 1:
-                    _animator.SetInteger("Count",count);
-                    isPunching = true;
-                    count++;
-                    Cooldown();
-                    break;
-                case 2:
-                    _animator.SetInteger("Count",count);
-                    isPunching = true;
-                    Cooldown();
-                    break;
-                case 3:
-                    _animator.SetInteger("Count",count);
-                    isPunching = true;
-                    count = 0;
-                    Cooldown();
-                    break;
-            }
+            _animator.SetInteger("Count", count);
+            count++;
+            temp = 0;
+        }
+        else
+        {
+            Cooldown();
+            _animator.SetInteger("Count", count);
+        }
+        if (count == 4)
+        {
+            count = 0;
         }
     }
 
     void Cooldown()
     {
         temp += Time.deltaTime;
-        if (temp > animDuration[count])
-        {
-            temp = 0;
-            isPunching= false;
-        }
-    }
-    void Tempo()
-    {
-        temp += Time.deltaTime;
-        if (temp >= 1)
+        if (temp >= 1f)
         {
             temp = 0;
             count = 0;
+        }
+    }
+
+    void DeactivePunchCollider()
+    {
+        for (int i = 0; i < punchCollider.Length; i++)
+        {
+            if (punchCollider[i] != null)
+            {
+                punchCollider[i].enabled = false;
+            }
+
+        }
+    }
+
+    void ActivePunchCollider()
+    {
+        for (int i = 0; i < punchCollider.Length; i++)
+        {
+            if (punchCollider[i] != null)
+            {
+                punchCollider[i].enabled = true;
+            }
         }
     }
 }

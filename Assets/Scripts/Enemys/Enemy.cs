@@ -33,7 +33,6 @@ public class Enemy : MonoBehaviour
         {
             transform.LookAt(new Vector3(target.position.x,transform.position.y,target.position.z));
             rb.velocity = transform.forward * speed + new Vector3(0, rb.velocity.y, 0);
-            
         }
         else
         {
@@ -81,7 +80,7 @@ public class Enemy : MonoBehaviour
         {
             if(anim != null)
             {
-                anim.Play("Hurt");
+                anim.Play("Taking Punch");
             }
             hp -= damagePunch;
         }

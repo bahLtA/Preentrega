@@ -8,7 +8,7 @@ public class BigEnemy : Enemy
         speed = 2.5f;
         range = 15f;
         routineTime = 10f;
-
+        
         rb = GetComponent<Rigidbody>();
         timer = 0;
 

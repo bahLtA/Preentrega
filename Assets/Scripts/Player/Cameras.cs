@@ -1,15 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Cameras : MonoBehaviour
 {
     public GameObject cam1, cam2;
+    public Image img;
+    public Transform cam;
+    float range = 100f;
+    public LayerMask ignore;
 
-    // Update is called once per frame
     void Update()
     {
         ChangeCamera();
+        DetectEnemy();
     }
 
     void ChangeCamera()
@@ -27,5 +32,18 @@ public class Cameras : MonoBehaviour
                 cam2.SetActive(false);
             }
         }
+    }
+    void DetectEnemy()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range,~ignore))
+        {
+            img.color = Color.white;
+            if (hit.transform.CompareTag("Enemy"))
+            {
+                img.color = Color.red;
+            }
+        }
+        Debug.Log(hit.transform.name);
     }
 }

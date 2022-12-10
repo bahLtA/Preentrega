@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 5067529431116223476}
   - component: {fileID: 5067529431116223477}
   - component: {fileID: 5067529431116223473}
-  - component: {fileID: 5067529431116223487}
   - component: {fileID: 5067529431116223472}
+  - component: {fileID: 477974028530081665}
   m_Layer: 0
   m_Name: Jugador
   m_TagString: Untagged
@@ -118,20 +118,8 @@ MonoBehaviour:
   speed: 100
   jumpForce: 10
   cam: {fileID: 0}
+  _cam: {fileID: 0}
   player: {fileID: 0}
---- !u!114 &5067529431116223487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5067529431116223479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 326532dcc4a7c0f4cb413b7604c10d0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 5067529430925170150}
 --- !u!143 &5067529431116223472
 CharacterController:
   m_ObjectHideFlags: 0
@@ -150,6 +138,22 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &477974028530081665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5067529431116223479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74a9413c9f967b14ca79f1219abf5cd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam1: {fileID: 0}
+  cam2: {fileID: 0}
+  img: {fileID: 0}
+  front: {fileID: 0}
 --- !u!1 &5067529431601377801
 GameObject:
   m_ObjectHideFlags: 0
